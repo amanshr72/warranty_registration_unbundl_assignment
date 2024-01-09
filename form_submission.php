@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $purchase_date = $_POST['purchase_date'];
     $invoice_pdf = $_POST['invoice_pdf'];
     $warranty_form_pdf = $_POST['warranty_form_pdf'];
-
+    
     try{
         $sql = "INSERT INTO warranty_registration (iso_number, model_name, name, email, phone, address, city, state, pincode, serial_number, purchase_date, invoice_pdf, warranty_form_pdf)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";    
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $mail->Username = $smtpConfig['username'];
                 $mail->Password = $smtpConfig['password'];
     
-                $mail->setFrom('jstandoff45@gmail.com', 'John Doe');
+                $mail->setFrom('amansh2786@gmail.com', 'Aman Sharma');
                 $mail->addAddress('hr@unbundl.com', 'hr'); // to: hr@unbundl.com
     
                 $mail->isHTML(true);
@@ -93,7 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         - Pincode: $pincode<br>
                         - Serial Number: $serial_number<br>
                         - Purchase Date: $purchase_date";
-    
+                
+                $invoice_pdf_path = __DIR__ . '/img/' . $invoice_pdf; 
+                $warranty_form_pdf_path = __DIR__ . '/img/' . $warranty_form_pdf;
+                $mail->addAttachment($invoice_pdf_path, 'Invoice.pdf');
+                $mail->addAttachment($warranty_form_pdf_path, 'WarrantyForm.pdf');
+                
                 $mail->send();
 
             } catch (Exception $e) {
