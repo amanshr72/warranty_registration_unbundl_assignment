@@ -81,17 +81,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
                 $mail->isHTML(true);
                 $mail->Subject = 'Warranty Registration';
-                $mail->Body = '$message = "Dear $name,\n\nYour warranty registration with Installation Service Order No $iso_number has been successful.\n\nThank you for registering with us.
-                    \n\nModel Name: $model_name
-                    \nName: $name
-                    \nEmail: $email
-                    \nPhone: $phone
-                    \nAddress: $address
-                    \nCity: $city
-                    \nState: $state
-                    \nPincode: $pincode
-                    \nSerial Number: $serial_number
-                    \nPurchase Date: $purchase_date\n';
+                $mail->Body = "Hi,<br><br>Warranty registration with Installation Service Order No $iso_number has been successful. Thank you for registering with us.<br>
+                        <br><strong>Details Submitted:</strong><br>
+                        - Model Name: $model_name<br>
+                        - Name: $name<br>
+                        - Email: $email<br>
+                        - Phone: $phone<br>
+                        - Address: $address<br>
+                        - City: $city<br>
+                        - State: $state<br>
+                        - Pincode: $pincode<br>
+                        - Serial Number: $serial_number<br>
+                        - Purchase Date: $purchase_date";
     
                 $mail->send();
 
@@ -101,7 +102,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit();
             }
 
-            $_SESSION['success_msg'] = "Record inserted successfully!";
+            $_SESSION['success_msg'] = "Thank you for sharing the documents with us. Our team will verify the details and get back to you within 7 
+                working days. FFIPL reserves the right to reject the warranty application if the registration terms & conditions are not met. Please refer to the product’s user manual for detailed 
+                warranty terms & conditions.";
             header("Location: index.php");
             exit();
     
