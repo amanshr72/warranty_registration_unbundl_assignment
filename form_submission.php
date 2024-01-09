@@ -66,8 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("sssssssssssss", $iso_number, $model_name, $name, $email, $phone, $address, $city, $state, $pincode, $serial_number, $purchase_date, $invoice_pdf, $warranty_form_pdf);
 
         if ($stmt->execute()) {
-            echo "Record inserted successfully!";
-            $_SESSION['success_msg'] = "Record inserted successfully!";
             include 'smtp_config.php'; 
             
             try {
@@ -96,12 +94,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     \nPurchase Date: $purchase_date\n';
     
                 $mail->send();
-                echo 'Email sent successfully!';
+
             } catch (Exception $e) {
                 $_SESSION['error_msg'] = 'Whoops!, Error sending email. Please try again.'. $e->getMessage();
                 header("Location: index.php");
                 exit();
             }
+
+            $_SESSION['success_msg'] = "Record inserted successfully!";
+            header("Location: index.php");
+            exit();
     
         } else {
             $_SESSION['error_msg'] = "Whoops!, Something went wrong. Please try again.";
